@@ -14,18 +14,7 @@ const balance = async () => {
         const balance = await bundlr.getLoadedBalance()
         const converted = bundlr.utils.unitConverter(balance) // 0.000000109864 - traditional decimal units
         console.log('getLoadedBalance',converted.toString())
-        
-        /*ERROR DOC
-        const node_add=await bundlr.getBundlerAddress(); 
-        console.log(node_add)
-        */
-        const extbal=await bundlr.getBalance(bundlr.address?bundlr.address:'0xd1e41ED1eDcFbaedF36567Dc67AE5042FA457945') 
-        const amount1=utils.formatEther(extbal.toString())
-        
-        console.log('getBalance',amount1 )
-
-        //getBundlerAddress is not a function
-        //console.log(await bundlr.getBundlerAddress() )
+    
        
     }catch(e){
         console.log(e)
@@ -58,8 +47,6 @@ const upload = async (data) => {
     const amount1=utils.formatEther(balance.toString())
 
     console.log('Balance and price:', amount0,amount1)
-    //Doc error: isGreaterThan esta mal
-
 
     // If you don't have enough balance for the upload
     if (!balance.isGreaterThan(price)) {
@@ -110,10 +97,9 @@ function parseInput (input) {
 const bundlrinit = async () => {
     try{
 
-        const privateKey = JSON.parse(readFileSync("wallet.json").toString()).private;
+        const privateKey = JSON.parse(readFileSync("wallets/wallet.json").toString()).private;
         bundlr = new NodeBundlr("https://node1.bundlr.network", "matic", privateKey)
         console.log("Bundlr client initialized",bundlr.address)
-        //Bug .address doesnt work
 
         return bundlr
     }catch(e){
@@ -125,11 +111,12 @@ const main = async () => {
 
         await bundlrinit()
 
-        //await balance()
+        await balance()
 
-        //await pricecalc()
+        await pricecalc()
         
         //await fund(0.00001)
+        
         await upload ('devrel')
         
         

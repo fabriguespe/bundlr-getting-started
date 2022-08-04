@@ -1,0 +1,26 @@
+{
+    "name": "Bird Ape King",
+    "symbol": "NFTPro",
+    "description": "Ape Bird Punk created by a BAD AI. Mixing genes of birds and apes and trying to produce a high conscious being that could patrol difficult planets. Owning this NFT has a 3 % more rewards on serpent academy.Coming soon.",
+    "seller_fee_basis_points": 1000,
+    "image": "https://arweave.net/--56hNXqVLfji9q_qNfUowCv26UVlQlbv0jFfRogj6s?ext=png",
+    "attributes": [{
+        "trait_type": "Eyes",
+        "value": "Red Glow"
+    }, {
+        "trait_type": "Status",
+        "value": "Ape Bird"
+    }],
+    "properties": {
+        "files": [{
+            "uri": "https://arweave.net/--56hNXqVLfji9q_qNfUowCv26UVlQlbv0jFfRogj6s?ext=png",
+            "type": "image/png"
+        }],
+        "category": "image",
+        "creators": [{
+            "address": "9m5kFDqgpf7Ckzbox91RYcADqcmvxW4MmuNvroD5H2r9",
+            "verified": true,
+            "share": 100
+        }]
+    }
+}

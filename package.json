@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@bundlr-network/client": "^0.7.14",
+    "@bundlr-network/client": "^0.7.12",
     "bignumber.js": "^9.0.2",
     "ethers": "^5.6.9",
     "web3": "^1.7.5"
