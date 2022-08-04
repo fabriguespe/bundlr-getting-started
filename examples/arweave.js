@@ -10,7 +10,7 @@ async function main() {
     const metadata = (readFileSync("assets/metadata.json"));
     await uploader(metadata,'application/json');
 
-    const image = readFileSync("assets/foto.jpeg");
+    const image = readFileSync("assets/image.jpeg");
     await uploader(image,'image/jpeg');
 
 }
