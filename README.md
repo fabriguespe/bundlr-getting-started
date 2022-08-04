@@ -17,5 +17,5 @@ yarn install / npm install
 Finally run this command in node tu see the result.
 
 ```sh
-node examples/full.js
+node examples/start.js
 ```
