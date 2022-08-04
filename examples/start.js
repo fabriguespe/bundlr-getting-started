@@ -94,7 +94,7 @@ function parseInput (input) {
     }
 }
 
-const bundlrinit = async () => {
+const init = async () => {
     try{
 
         const privateKey = JSON.parse(readFileSync("wallets/wallet.json").toString()).private;
@@ -109,7 +109,7 @@ const bundlrinit = async () => {
 const main = async () => {
     try{
 
-        await bundlrinit()
+        await init()
 
         await balance()
 
