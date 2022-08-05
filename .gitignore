@@ -25,3 +25,5 @@ yarn-error.log*
 
 wallets/wallet.json
 wallets/arwallet.json
+examples/arweave.js
+examples/libtest.js
