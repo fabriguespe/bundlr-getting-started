@@ -1,61 +1,36 @@
-
 const {NodeBundlr} = require('@bundlr-network/client/build/node');
 const BigNumber = require('bignumber.js')
 const { readFileSync }  = require("fs") ;
 const {utils} = require('ethers')
 
-//NEVER SHARE YOUR PRIVATE, NOT EVEN WITH YOUR MOM.
-const CURRENCY="matic"
+CURRENCY=null
 let bundlr = null
 
-const balance = async () => {
+const balanceOf = async () => {
     try{
-        
         const balance = await bundlr.getLoadedBalance()
         const converted = bundlr.utils.unitConverter(balance) // 0.000000109864 - traditional decimal units
-        console.log('getLoadedBalance',converted.toString())
-    
-       
+        console.log('balance',converted.toString())
+        return balance
     }catch(e){
         console.log(e)
     }
-
-
 }
 
-const pricecalc = async () => {
+const calculate_price = async (data) => {
     try{
-
-        const size=1000
-        const price=await bundlr.getPrice(size);
+        const price=await bundlr.getPrice(data.length);
         const amount=utils.formatEther(price.toString())
         console.log('Price of uploading:', amount,CURRENCY)
-
+        return price
     }catch(e){
 
         console.log(e)
     }
-
 }
 
 const upload = async (data) => {
-    // Get the cost for upload
-    const price = await bundlr.getPrice(data.length);
-    const amount0=utils.formatEther(price.toString())
-    // Get your current balance
-    const balance = await bundlr.getLoadedBalance();
-    const amount1=utils.formatEther(balance.toString())
 
-    console.log('Balance and price:', amount0,amount1)
-
-    // If you don't have enough balance for the upload
-    if (!balance.isGreaterThan(price)) {
-        // Fund your account with the difference
-        // We multiply by 1.1 to make sure we don't run out of funds
-        await bundlr.fund(balance.minus(price).multipliedBy(1.1))
-    }
-    
-    // Create, sign and upload the transaction
     const tx = bundlr.createTransaction(data);
     const sign=await tx.sign();
     const upload= await tx.upload();
@@ -98,7 +73,7 @@ const init = async () => {
     try{
 
         const privateKey = JSON.parse(readFileSync("wallets/wallet.json").toString()).private;
-        bundlr = new NodeBundlr("https://node1.bundlr.network", "matic", privateKey)
+        bundlr = new NodeBundlr("https://node1.bundlr.network", CURRENCY, privateKey)
         console.log("Bundlr client initialized",bundlr.address)
 
         return bundlr
@@ -109,16 +84,18 @@ const init = async () => {
 const main = async () => {
     try{
 
+        //Init
+        const data = readFileSync("assets/image.jpeg");
+        CURRENCY="matic"
+
         await init()
 
-        await balance()
-
-        await pricecalc()
+        const balance=await balanceOf()
+        let price=await calculate_price(data)
         
-        //await fund(0.00001)
+        if (!balance.isGreaterThan(price))await fund(0.0001)
         
-        await upload ('devrel')
-        
+        await upload (data)
         
     }catch(e){
         console.log(e)
